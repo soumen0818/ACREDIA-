@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Card } from '@/components/ui/card';
@@ -27,7 +27,7 @@ interface CredentialData {
     } | null;
 }
 
-export default function VerifyPage() {
+function VerifyContent() {
     const searchParams = useSearchParams();
     const tokenId = searchParams.get('token');
 
@@ -193,7 +193,7 @@ export default function VerifyPage() {
                         <div className="flex items-center justify-between">
                             <Link href="/" className="flex items-center space-x-3">
                                 <Image
-                                       src="/logo.png"
+                                    src="/logo.png"
                                     alt="Acredia Logo"
                                     width={40}
                                     height={40}
@@ -364,7 +364,7 @@ export default function VerifyPage() {
                         <div className="flex items-center justify-between">
                             <Link href="/" className="flex items-center space-x-3">
                                 <Image
-                                       src="/logo.png"
+                                    src="/logo.png"
                                     alt="Acredia Logo"
                                     width={40}
                                     height={40}
@@ -413,7 +413,7 @@ export default function VerifyPage() {
                         <div className="flex items-center justify-between">
                             <Link href="/" className="flex items-center space-x-3">
                                 <Image
-                                       src="/logo.png"
+                                    src="/logo.png"
                                     alt="Acredia Logo"
                                     width={40}
                                     height={40}
@@ -480,7 +480,7 @@ export default function VerifyPage() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className="flex items-center space-x-3">
                             <Image
-                                   src="/logo.png"
+                                src="/logo.png"
                                 alt="Acredia Logo"
                                 width={40}
                                 height={40}
@@ -912,5 +912,17 @@ export default function VerifyPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function VerifyPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        }>
+            <VerifyContent />
+        </Suspense>
     );
 }
